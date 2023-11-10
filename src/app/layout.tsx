@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 
 import Children from "@/types/children";
 
+import "swiper/css";
 import "./globals.css";
 
 const roboto = Roboto({
