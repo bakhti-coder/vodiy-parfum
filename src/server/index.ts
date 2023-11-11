@@ -12,8 +12,7 @@ const request = axios.create({
 request.interceptors.response.use(
   (response) => response,
   (err) => {
-    console.log("Err: ", err);
-    toast.error(err.response.data, { autoClose: 1000 });
+    toast.error(err.response.data.msg, { autoClose: 1000 });
 
     return Promise.reject(err);
   }
