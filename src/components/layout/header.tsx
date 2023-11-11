@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,15 +10,22 @@ import ListItem from "@mui/material/ListItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Badge, Container, Link } from "@mui/material";
+import { Badge, Container } from "@mui/material";
 import NavLink from "../shares/NavLink";
 import Image from "next/image";
+import useAuth from "@/store/auth";
+import { Fragment } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import useAddCart from "@/store/cart";
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
+
 const navItems = [
   {
     href: "/",
@@ -51,8 +56,32 @@ const navItems = [
 ];
 
 const Header = (props: Props) => {
+  const router = useRouter();
+  
+  const [userOpen, setUserOpen] = useState(false);
+
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const { logOut, isAuthenticated } = useAuth();
+  const {  cart, } = useAddCart();
+
+
+  const totalPrice = cart.reduce(
+    (acc: number, pr: any) => acc + pr.prQuantity,
+    0
+    )
+
+  
+  
+
+  const handleLogOut = () => {
+    logOut(router);
+  };
+
+  const handleButtonClick = () => {
+    setUserOpen(!userOpen);
+  };
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -102,23 +131,76 @@ const Header = (props: Props) => {
               Logo
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {navItems.map((item) => (
-                <NavLink key={item.title} href={item.href}>
-                  {item.title}
-                  {item.icon && (
-                    <span>
-                      <Badge badgeContent={1} color="error">
-                        <Image
-                          src={item.icon}
-                          alt="cart"
-                          height={20}
-                          width={20}
-                        />
-                      </Badge>
-                    </span>
-                  )}
-                </NavLink>
-              ))}
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="/about">About</NavLink>
+              <NavLink href="/card">
+                <Badge badgeContent={totalPrice} color="error">
+                  <Image
+                    src="/images/cart2.png"
+                    alt="cart"
+                    height={20}
+                    width={20}
+                  />
+                </Badge>
+              </NavLink>
+              <NavLink href="/favourite">
+                <Badge badgeContent={cart.length} color="error">
+                  <Image
+                    src="/images/favorite.svg"
+                    alt="cart"
+                    height={20}
+                    width={20}
+                  />
+                </Badge>
+              </NavLink>
+              <NavLink href="#">
+                {isAuthenticated ? (
+                  <div
+                    onClick={handleButtonClick}
+                    className="z-50 cursor-pointer relative inline"
+                  >
+                    <Image
+                      src={"/images/users.png"}
+                      width={30}
+                      height={60}
+                      alt="user"
+                    />
+                    {userOpen && (
+                      <div className="user_modal z-50 absolute p-5 w w-[200px] right-0">
+                        <div className="flex justify-start mb-3 items-center text-white">
+                          <Image
+                            src={"/images/accounticon.png"}
+                            width={24}
+                            height={24}
+                            alt="order"
+                          />
+                          <Link href={"/account"} className="ml-2 text-black">
+                            Account
+                          </Link>
+                        </div>
+
+                        <div
+                          onClick={handleLogOut}
+                          className="flex justify-start items-center text-white"
+                        >
+                          <Image
+                            src={"/images/logouticon.png"}
+                            width={24}
+                            height={24}
+                            alt="log-out"
+                          />
+                          <span className="ml-2 text-black">Log out</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Fragment>
+                    <NavLink href="/login">Kirish</NavLink>
+                    <NavLink href="/register">Register</NavLink>
+                  </Fragment>
+                )}
+              </NavLink>
             </Box>
           </Toolbar>
         </AppBar>

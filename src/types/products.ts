@@ -14,6 +14,7 @@ export interface Products {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  prQuantity?: number
 }
 export interface ProductsImage {
   public_id: string;

@@ -2,7 +2,7 @@ import ProductCard from "@/components/card/ProductCard";
 import ParallaxComponent from "@/components/parralax";
 import request from "@/server";
 import { Products } from "@/types/products";
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import Link from "next/link";
 
 async function getProducts() {
@@ -35,7 +35,7 @@ const HomePage = async () => {
               Barcha mahsulotlar
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {data.slice(0, 8).map((product, index) => (
               <ProductCard key={index} {...product} />
             ))}

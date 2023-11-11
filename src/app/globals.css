@@ -27,5 +27,34 @@ a {
 }
 
 img {
-  object-fit: cover !important;
+  object-fit: contain !important;
+}
+
+.user_modal {
+  border-radius: 10px;
+  background: rgba(16, 16, 16, 0.04);
+  backdrop-filter: blur(100px);
+}
+.loader {
+	border-top-color: #3498db;
+	-webkit-animation: spinner 1.5s linear infinite;
+	animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

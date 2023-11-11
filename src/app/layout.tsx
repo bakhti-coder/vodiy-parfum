@@ -13,8 +13,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "E-commerce",
-  description: "E-commerce project | Typescript",
+  title: "Vodiy parfum",
+  description: "Vodiy Parfum | Typescript",
 };
 
 export default function RootLayout({ children }: Children) {
