@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
 import Children from "@/types/children";
+import { ToastContainer } from 'react-toastify';
 
 import "swiper/css";
+import 'react-toastify/dist/ReactToastify.css';
 import "./globals.css";
 
 const roboto = Roboto({
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Children) {
   return (
     <html lang="en">
+      <ToastContainer />
       <body className={roboto.className}>{children}</body>
     </html>
   );
