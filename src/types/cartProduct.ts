@@ -1,4 +1,4 @@
-export interface CartProducts {
+export interface CartProductsType {
     checked: boolean;
     sold: number;
     price: number;

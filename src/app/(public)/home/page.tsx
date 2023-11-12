@@ -1,4 +1,5 @@
 import ProductCard from "@/components/card/ProductCard";
+import CategoryList from "@/components/lists/CategoryList";
 import ParallaxComponent from "@/components/parralax";
 import request from "@/server";
 import { Products } from "@/types/products";
@@ -36,10 +37,19 @@ const HomePage = async () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {data.slice(0, 8).map((product, index) => (
-              <ProductCard key={index} {...product} />
-            ))}
+            {data
+              .filter((el) => el?.quantity !== 0)
+              .slice(0, 10)
+              .map((product, index) => (
+                <ProductCard key={index} {...product} />
+              ))}
           </div>
+        </Container>
+      </section>
+      <section>
+        <Container maxWidth="xl">
+        <h1 className="my-10 text-3xl font-bold">Categoriyalar</h1>
+          <CategoryList />
         </Container>
       </section>
     </main>

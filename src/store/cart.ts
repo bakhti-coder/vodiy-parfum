@@ -9,6 +9,7 @@ interface CartTypes {
   addToCart: (id: string) => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
+  deleteProductInCart: (id: string) => void;
 }
 
 const isLocalStorageAvailable = typeof localStorage !== "undefined";
@@ -62,7 +63,6 @@ const useAddCart = create<CartTypes>((set, get) => ({
     let newCart;
 
     let productInCart: any = cart.find((pr: any) => pr._id === id);
-    console.log(productInCart);
 
     if (productInCart.prQuantity > 1) {
       newCart = cart.map((pr: any) => {
@@ -77,6 +77,14 @@ const useAddCart = create<CartTypes>((set, get) => ({
     set({ cart: newCart });
     localStorage.setItem(CART, JSON.stringify(newCart));
   },
+
+  deleteProductInCart: (id) => {
+    const { cart } = get();
+    let newCart;
+    newCart = cart.filter((pr: any) => pr._id !== id);
+    set({ cart: newCart });
+    localStorage.setItem(CART, JSON.stringify(newCart));
+  }
 }));
 
 export default useAddCart;

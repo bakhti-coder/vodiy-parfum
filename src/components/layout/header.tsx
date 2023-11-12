@@ -57,22 +57,18 @@ const navItems = [
 
 const Header = (props: Props) => {
   const router = useRouter();
-  
+
   const [userOpen, setUserOpen] = useState(false);
 
   const { window } = props;
 
   const { logOut, isAuthenticated } = useAuth();
-  const {  cart, } = useAddCart();
-
+  const { cart } = useAddCart();
 
   const totalPrice = cart.reduce(
     (acc: number, pr: any) => acc + pr.prQuantity,
     0
-    )
-
-  
-  
+  );
 
   const handleLogOut = () => {
     logOut(router);
@@ -128,7 +124,7 @@ const Header = (props: Props) => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              Logo
+              <Link href="/">Logo</Link>
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <NavLink href="/">Home</NavLink>
@@ -144,7 +140,7 @@ const Header = (props: Props) => {
                 </Badge>
               </NavLink>
               <NavLink href="/favourite">
-                <Badge badgeContent={cart.length} color="error">
+                <Badge badgeContent={3} color="error">
                   <Image
                     src="/images/favorite.svg"
                     alt="cart"
@@ -178,7 +174,17 @@ const Header = (props: Props) => {
                             Account
                           </Link>
                         </div>
-
+                        <div className="flex justify-start mb-3 items-center text-white">
+                          <Image
+                            src={"/images/accounticon.png"}
+                            width={24}
+                            height={24}
+                            alt="orders"
+                          />
+                          <Link href={"/orders"} className="ml-2 text-black">
+                            Buyurtmalarim
+                          </Link>
+                        </div>
                         <div
                           onClick={handleLogOut}
                           className="flex justify-start items-center text-white"
@@ -195,10 +201,10 @@ const Header = (props: Props) => {
                     )}
                   </div>
                 ) : (
-                  <Fragment>
+                  <div>
                     <NavLink href="/login">Kirish</NavLink>
                     <NavLink href="/register">Register</NavLink>
-                  </Fragment>
+                  </div>
                 )}
               </NavLink>
             </Box>
