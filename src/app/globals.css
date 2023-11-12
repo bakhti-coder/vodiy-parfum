@@ -58,3 +58,13 @@ img {
 		transform: rotate(360deg);
 	}
 }
+
+body {
+	overflow-x: hidden;
+}
+
+/* .slick-prev, .slick-next {
+	background: #000 !important;
+	right: 0 !important;
+	left: 0 !important;
+} */
