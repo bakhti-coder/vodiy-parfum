@@ -63,8 +63,7 @@ body {
 	overflow-x: hidden;
 }
 
-/* .slick-prev, .slick-next {
-	background: #000 !important;
-	right: 0 !important;
-	left: 0 !important;
-} */
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+	box-shadow: none !important;
+	border: none !important;
+}

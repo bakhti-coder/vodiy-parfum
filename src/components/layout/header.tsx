@@ -129,6 +129,7 @@ const Header = (props: Props) => {
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <NavLink href="/">Home</NavLink>
               <NavLink href="/about">About</NavLink>
+              <NavLink href="/products">Mahsulotlar</NavLink>
               <NavLink href="/card">
                 <Badge badgeContent={totalPrice} color="error">
                   <Image

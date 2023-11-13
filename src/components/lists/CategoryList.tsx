@@ -21,7 +21,6 @@ const CategoryList = () => {
     try {
       setLoading(true);
       const { data } = await request.get("category");
-      console.log(data);
       setData(data);
     } finally {
       setLoading(false);
@@ -75,7 +74,6 @@ const CategoryList = () => {
   return (
     <div>
       <div>
-        <h2> Single Item</h2> 
         <Slider {...settings}>
         {data.map((category) => (
         <div key={category._id}>
