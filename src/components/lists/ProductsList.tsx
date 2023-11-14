@@ -1,18 +1,25 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import ProductCard from "@/components/card/ProductCard";
-import request from "@/server";
-import { Products } from "@/types/products";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import Loading from "../shares/Loading";
+import {
+  Grid,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Grid from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
+import ProductCard from "@/components/card/ProductCard";
+import Loading from "../shares/Loading";
+import Title from "../shares/Title";
+import request from "@/server";
+import { useEffect, useState, useCallback } from "react";
+import { Products } from "@/types/products";
 import { Category } from "@/types/category";
+
+import './style.scss'
 
 const ProductsList = () => {
   const [data, setData] = useState<Products[]>([]);
@@ -23,12 +30,23 @@ const ProductsList = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [categoryId, setCategoryId] = useState<string>();
+  const [activeCategory, setActiveCategory] = useState<string | null>(null); 
+  const [activeSort, setActiveSort] = useState<string | null>(null); 
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const getProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await request.get("product", { params: { limit: 10, search, sort, category: categoryId ? categoryId : undefined} });
+      const { data } = await request.get("product", {
+        params: {
+          limit: 10,
+          search,
+          sort,
+          category: categoryId ? categoryId : undefined,
+        },
+      });
       setData(data?.products);
       setTotal(data.total);
     } finally {
@@ -48,12 +66,27 @@ const ProductsList = () => {
 
   useEffect(() => {
     getProducts();
+  }, [getProducts]);
+
+  useEffect(() => {
     getCategories();
-  }, [getProducts, getCategories]);
+  }, [getCategories]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    getProducts()
+    getProducts();
+  };
+
+  const handleCategoryClick = (id: string) => {
+    setCategoryId(id);
+    setActiveCategory(id);
+    getProducts();
+  };
+
+  const handleSortClick = (params: string) => {
+    setSort(params);
+    setActiveSort(params);
+    getProducts();
   };
 
   const sortParams = [
@@ -93,10 +126,10 @@ const ProductsList = () => {
 
   return (
     <div>
-      <h1 className="my-10 text-3xl font-bold">Barcha mahsulotlar</h1>
+      <Title>Barcha mahsulotlar</Title>
       <hr className="my-5 h-[1px] bg-gray-500" />
-      <Grid container spacing={0}>
-        <Grid item xs={1} md={2}>
+      <Grid container spacing={isSmallScreen ? 0 : 2}>
+        <Grid item xs={12} md={2}>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -110,26 +143,35 @@ const ProductsList = () => {
                 <Loading />
               ) : (
                 category.map((el) => (
-                  <Typography key={el._id} onClick={() => setCategoryId(el._id)}>{el.name}</Typography>
+                  <Typography
+                    key={el._id}
+                    onClick={() => handleCategoryClick(el._id)}
+                    className={`cursor-pointer mt-1 ${
+                      activeCategory === el._id ? "active" : ""
+                    }`} 
+                  >
+                    {el.name}
+                  </Typography>
                 ))
               )}
-
               <hr className="my-5 h-[1px] bg-gray-500" />
             </AccordionDetails>
           </Accordion>
           <div className="ml-4">
             {sortParams.map((el) => (
-              <p key={el.name} className="mt-3 cursor-pointer" onClick={() => setSort(el.params)}>
+              <p
+                key={el.name}
+                className={`mt-3 cursor-pointer ${
+                  activeSort === el.params ? "active" : ""
+                }`} 
+                onClick={() => handleSortClick(el.params)}
+              >
                 {el.name}
               </p>
             ))}
           </div>
         </Grid>
-
-        <Grid item xs={6} md={1}>
-          <hr className="my-5 h-1/2 w-[1px] bg-gray-500" />
-        </Grid>
-        <Grid item xs={6} md={9}>
+        <Grid item xs={12} md={10}>
           <div className="relative w-full my-2">
             <input
               type="text"
@@ -142,7 +184,13 @@ const ProductsList = () => {
               <SearchIcon />
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+          <div
+            className={`grid grid-cols-1 ${
+              isSmallScreen
+                ? "sm:grid-cols-2"
+                : "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+            } gap-2`}
+          >
             {loading ? (
               <Loading />
             ) : (

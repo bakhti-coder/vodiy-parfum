@@ -1,10 +1,12 @@
 import ProductCard from "@/components/card/ProductCard";
 import CategoryList from "@/components/lists/CategoryList";
 import ParallaxComponent from "@/components/parralax";
+import Title from "@/components/shares/Title";
 import request from "@/server";
 import { Products } from "@/types/products";
 import { Container } from "@mui/material";
 import Link from "next/link";
+
 
 async function getProducts() {
   const { data } = await request.get<Products[]>("last-products");
@@ -27,7 +29,7 @@ const HomePage = async () => {
       <section>
         <Container maxWidth="xl">
           <div className="flex justify-between items-center">
-            <h1 className="my-10 text-3xl font-bold">Oxirgi mahsulotlar</h1>
+            <Title>Oxirgi mahsulotlar</Title>
             <Link
               href="/products"
               className="md:block hidden text-sm text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase px-5 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -48,7 +50,7 @@ const HomePage = async () => {
       </section>
       <section>
         <Container maxWidth="xl">
-        <h1 className="my-10 text-3xl font-bold">Categoriyalar</h1>
+        <Title>Categoriyalar</Title>
           <CategoryList />
         </Container>
       </section>

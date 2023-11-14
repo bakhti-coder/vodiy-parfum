@@ -13,7 +13,6 @@ const AllProductsPage = async () => {
   return (
     <section className="py-20">
       <Container maxWidth="xl">
-        {/* <h1 className="my-10 text-3xl font-bold">Barcha mahsulotlar({data.total})</h1> */}
        
         <ProductsList />
       </Container>

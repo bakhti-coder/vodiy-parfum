@@ -1,6 +1,7 @@
 "use client";
 
 import useAddCart from "@/store/cart";
+import useAddFavourite from "@/store/favourite";
 import { Products } from "@/types/products";
 import cleanPrice from "@/utils/CleanedPrice";
 import { Tooltip } from "@mui/material";
@@ -8,21 +9,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ _id, image, title, description, price }: Products) => {
-  const { addToCart, cart, decreaseQuantity, increaseQuantity } = useAddCart();
-
+  const { addToCart, cart } = useAddCart();
   const productInCart = cart.find((pr) => pr._id === _id);
-
   const cleanedPrice = cleanPrice(price);
+
+  const { addTofavourite, deleteProductInFavourite, favourite } = useAddFavourite();
+
+  const isInFavourite = favourite.some((pr) => pr._id === _id);
+
+  const handleFavouriteClick = () => {
+    if (isInFavourite) {
+      deleteProductInFavourite(_id);
+    } else {
+      addTofavourite(_id);
+    }
+  };
 
   return (
     <div className="hover:shadow-sm bg-gray flex flex-col  border border-lightGray p-6 rounded-lg w-full h-full relative ">
+      <div onClick={handleFavouriteClick}>
       <Image
-        src="/images/heart.svg"
+        src={isInFavourite ? `/images/heartsfill.png` : '/images/heart.svg'}
         alt="shopbag"
         height={24}
         width={24}
         className="absolute top-2 right-2 z-50 cursor-pointer"
+        
       />
+      </div>
       <div className="h-full w-full relative flex-1">
         <Link href={`products/${_id}`}>
           <div className="relative h-52 w-full">

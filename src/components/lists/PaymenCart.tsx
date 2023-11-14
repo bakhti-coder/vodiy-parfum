@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import request from "@/server";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const PaymenCart = () => {
   const router = useRouter()
@@ -42,7 +43,10 @@ const PaymenCart = () => {
       </h1>{" "}
       <p></p>
       {cart.length === 0 ? (
-        <h1 className="text-center text-3xl my-3">No Cart...</h1>
+        <div className='text-center'>
+        <h1 className=" text-3xl my-3">{`Mahsulot yo'q :(`}</h1>
+        <Link href='/products' className='underline my-1  text-blue-600'>Xarid qilish</Link>
+        </div>
       ) : (
         <div className="w-full">
           {cart.map((pr) => (

@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useAddCart from "@/store/cart";
+import useAddFavourite from "@/store/favourite";
 
 interface Props {
   window?: () => Window;
@@ -57,27 +58,27 @@ const navItems = [
 
 const Header = (props: Props) => {
   const router = useRouter();
-
-  const [userOpen, setUserOpen] = useState(false);
-
   const { window } = props;
 
-  const { logOut, isAuthenticated } = useAuth();
-  const { cart } = useAddCart();
+  const [userOpen, setUserOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
+  const { logOut, isAuthenticated } = useAuth();
+  const handleLogOut = () => {
+    logOut(router);
+  };
+  
+  const { cart } = useAddCart();
   const totalPrice = cart.reduce(
     (acc: number, pr: any) => acc + pr.prQuantity,
     0
   );
 
-  const handleLogOut = () => {
-    logOut(router);
-  };
+  const {favourite} = useAddFavourite()
 
   const handleButtonClick = () => {
     setUserOpen(!userOpen);
   };
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -141,7 +142,7 @@ const Header = (props: Props) => {
                 </Badge>
               </NavLink>
               <NavLink href="/favourite">
-                <Badge badgeContent={3} color="error">
+                <Badge badgeContent={favourite.length} color="error">
                   <Image
                     src="/images/favorite.svg"
                     alt="cart"

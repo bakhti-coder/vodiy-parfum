@@ -13,11 +13,14 @@ import useAuth from "@/store/auth";
 import { toast } from "react-toastify";
 
 interface IFormInput {
+    firstName: string
+    lastName:string
+    phoneNumber:string
   username: string;
   password: string;
 }
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -32,7 +35,7 @@ const LoginForm = () => {
       const {
         data: { accesstoken, user },
       } = await request.post<{ accesstoken: string; user: UserType }>(
-        "auth/login",
+        "auth/register",
         data
       );
       setIsAuthenticated(user);
@@ -41,7 +44,8 @@ const LoginForm = () => {
 
       request.defaults.headers.Authorization = `Bearer ${Cookies.get(TOKEN)}`;
 
-      toast.success('Muvaffaqiyatli kirdingiz', {autoClose: 1000})
+      toast.success('Muvaffaqiyatli ro\'yxatdan o\'tdingiz', {autoClose: 1000})
+
 
       router.push("/");
     } finally {
@@ -60,8 +64,56 @@ const LoginForm = () => {
         />
       </div>
       <div className="ml-0 md:ml-24 mt-5 md:mt-10 ">
-        <h1 className="text-3xl font-semibold mb-3">{`Kirish`}</h1>
+        <h1 className="text-3xl font-semibold mb-3">{`Ro'yxatdan o'tish`}</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="relative float-label-input">
+            <input
+              required
+              type="text"
+              {...register("firstName")}
+              placeholder=" "
+              className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+            />
+            <label
+              form="name"
+              className="absolute top-3 left-0 text-gray-400 pointer-events-none transition duration-200 ease-in-outbg-white px-2 text-grey-darker"
+            >
+              Fisrt name
+            </label>
+          </div>
+
+        <div className="relative float-label-input">
+            <input
+              required
+              type="text"
+              {...register("lastName")}
+              placeholder=" "
+              className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+            />
+            <label
+              form="name"
+              className="absolute top-3 left-0 text-gray-400 pointer-events-none transition duration-200 ease-in-outbg-white px-2 text-grey-darker"
+            >
+              Last name
+            </label>
+          </div>
+
+        <div className="relative float-label-input">
+            <input
+              required
+              type="text"
+              {...register("phoneNumber")}
+              placeholder=" "
+              className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+            />
+            <label
+              form="name"
+              className="absolute top-3 left-0 text-gray-400 pointer-events-none transition duration-200 ease-in-outbg-white px-2 text-grey-darker"
+            >
+              Phone number
+            </label>
+          </div>
+
           <div className="relative float-label-input">
             <input
               required
@@ -77,6 +129,7 @@ const LoginForm = () => {
               Username
             </label>
           </div>
+
           <div className="relative float-label-input">
             <input
               required
@@ -123,14 +176,14 @@ const LoginForm = () => {
               type="submit"
               className="bg-sky-600 w-full border border-none py-3 text-center rounded-[4px] text-white font-light"
             >
-              Kirish
+              {`Ro'yxatdan o'tish`}
             </button>
           )}
         </form>
         <p className="leading-6 opacity-60 mt-5 text-center">
-          {`Akkountingiz Yo'qmi?`}
-          <Link className="pl-2 underline decoration-1" href={"/register"}>
-            {` Ro'yxatdan o'tish`}
+          {`Akkountingiz bormi?`}
+          <Link className="pl-2 underline decoration-1" href={"/login"}>
+            {`Kirish`}
           </Link>
         </p>
       </div>
@@ -138,4 +191,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { Products } from "@/types/products";
 import { CART } from "@/constants";
 import request from "@/server";
+import { toast } from "react-toastify";
 
 interface CartTypes {
   cart: Products[] | [];
@@ -44,6 +45,8 @@ const useAddCart = create<CartTypes>((set, get) => ({
       }
       set({ cart: newCart });
       localStorage.setItem(CART, JSON.stringify(newCart));
+
+      toast.success(`${data.title} savatga muvaffaqiyatli qo'shildi`, {autoClose: 1000})
     } finally {
     }
   },
@@ -84,6 +87,7 @@ const useAddCart = create<CartTypes>((set, get) => ({
     newCart = cart.filter((pr: any) => pr._id !== id);
     set({ cart: newCart });
     localStorage.setItem(CART, JSON.stringify(newCart));
+    toast.success(`Savatdan muvaffaqiyatli o'chirildi`, {autoClose: 1000})
   }
 }));
 

@@ -5,6 +5,7 @@ import { Payments } from "@/types/payments";
 import { Products } from "@/types/products";
 import { useCallback, useEffect, useState } from "react";
 import TablePayment from "../card/TablePayment";
+import Loading from "../shares/Loading";
 
 const OrdersList = () => {
   const [data, setData] = useState<Products[]>([]);
@@ -14,7 +15,6 @@ const OrdersList = () => {
     try {
       setLoading(true);
       const { data } = await request.get("auth/payments");
-      console.log(data);
       setData(data)
     } finally {
       setLoading(false);
@@ -28,11 +28,12 @@ const OrdersList = () => {
 
   return <div>
     <h1 className="text-3xl font-extrabold">
-        Buyurtmalaringiz{" "}
-      </h1>{" "}
-    {data.map(el => (
+        Buyurtmalaringiz
+      </h1>
+      {lading ?  <Loading /> : data.map(el => (
       <TablePayment key={el._id} {...el} />
     ))}
+    
   </div>;
 };
 
