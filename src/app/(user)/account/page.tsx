@@ -2,7 +2,6 @@
 
 import { Container } from "@mui/material";
 import { useState, useCallback, useEffect } from "react";
-import { User } from "@/types/userType";
 import request from "@/server";
 import { UserType } from "@/types/user";
 import { toast } from 'react-toastify';
@@ -10,12 +9,6 @@ import Title from "@/components/shares/Title";
 import Loading from "@/components/shares/Loading";
 import withAuth from "@/hoc/with-auth";
 
-interface IFormInput {
-  username: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-}
 
 const AccountPage = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -171,4 +164,6 @@ const AccountPage = () => {
   );
 };
 
-export default withAuth(AccountPage);
+const AccountPageAuth = withAuth(AccountPage)  
+
+export default AccountPageAuth;
