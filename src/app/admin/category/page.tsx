@@ -1,5 +1,5 @@
 'use client'
-import withAuth from '@/hoc/with-auth'
+import withAuth from '@/app/hoc/with-auth'
 import React from 'react'
 
 const CategoryAdmin = () => {

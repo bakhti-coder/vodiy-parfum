@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const TablePayment = ({ cart }: any) => {
+const TablePayment = ({ cart, status }: any) => {
 
   return (
     <div>
@@ -23,6 +23,9 @@ const TablePayment = ({ cart }: any) => {
                     <th scope="col" className="px-6 py-4">
                       Soni
                     </th>
+                    <th scope="col" className="px-6 py-4">
+                      Holati
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,6 +37,7 @@ const TablePayment = ({ cart }: any) => {
                     <td className="whitespace-nowrap px-6 py-4">{el?.product.title}</td>
                     <td className="whitespace-nowrap px-6 py-4">{el?.product.price}</td>
                     <td className="whitespace-nowrap px-6 py-4">{el?.quantity}</td>
+                    <td className={`whitespace-nowrap px-6 py-4 text-green-900 font-bold ${status === 'ACCEPTED' && 'text-black' || status === 'SUCCESS' && 'text-green-900' || status === 'CANCELED' && 'text-red-800'}`}>{status === 'ACCEPTED' && 'Buyurtma yuborildi' || status === 'SUCCESS' && 'Yetkazildi' || status === 'CANCELED' && 'Buyurtma bekor qilindi'}</td>
                   </tr>
                     ))}
                 </tbody>

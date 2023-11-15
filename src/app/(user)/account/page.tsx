@@ -7,7 +7,7 @@ import { UserType } from "@/types/user";
 import { toast } from 'react-toastify';
 import Title from "@/components/shares/Title";
 import Loading from "@/components/shares/Loading";
-import withAuth from "@/hoc/with-auth";
+import withAuth from "@/app/hoc/with-auth";
 
 
 const AccountPage = () => {
@@ -164,6 +164,4 @@ const AccountPage = () => {
   );
 };
 
-const AccountPageAuth = withAuth(AccountPage)  
-
-export default AccountPageAuth;
+export default withAuth(AccountPage);

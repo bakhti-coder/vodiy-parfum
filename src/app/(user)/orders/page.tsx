@@ -1,7 +1,7 @@
 "use client"
 
 import OrdersList from "@/components/lists/OrdersList";
-import withAuth from "@/hoc/with-auth";
+import withAuth from "@/app/hoc/with-auth";
 
 
 const OrdersPage = () => {

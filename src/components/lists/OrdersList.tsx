@@ -9,6 +9,7 @@ import Loading from "../shares/Loading";
 
 const OrdersList = () => {
   const [data, setData] = useState<Products[]>([]);
+  console.log(data)
   const [lading, setLoading] = useState(false);
 
   const getPayments = useCallback(async () => {
