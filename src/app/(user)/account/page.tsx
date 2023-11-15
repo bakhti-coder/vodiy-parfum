@@ -8,6 +8,7 @@ import { UserType } from "@/types/user";
 import { toast } from 'react-toastify';
 import Title from "@/components/shares/Title";
 import Loading from "@/components/shares/Loading";
+import withAuth from "@/hoc/with-auth";
 
 interface IFormInput {
   username: string;
@@ -170,4 +171,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default withAuth(AccountPage);

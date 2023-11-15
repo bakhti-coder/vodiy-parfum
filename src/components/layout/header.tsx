@@ -7,6 +7,8 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -67,14 +69,14 @@ const Header = (props: Props) => {
   const handleLogOut = () => {
     logOut(router);
   };
-  
+
   const { cart } = useAddCart();
   const totalPrice = cart.reduce(
     (acc: number, pr: any) => acc + pr.prQuantity,
     0
   );
 
-  const {favourite} = useAddFavourite()
+  const { favourite } = useAddFavourite();
 
   const handleButtonClick = () => {
     setUserOpen(!userOpen);
@@ -93,14 +95,32 @@ const Header = (props: Props) => {
         Logo
       </Typography>
       <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item.title} disablePadding>
-            <NavLink key={item.title} href={item.href}>
-              {item.title}
-            </NavLink>
-          </ListItem>
-        ))}
+      <List className="flex flex-col justify-center">
+        <NavLink href="/home">Bosh sahifa</NavLink>
+        <NavLink href="/about">Biz haqimizda</NavLink>
+        <NavLink href="/products">Mahsulotlar</NavLink>
+        <NavLink href="/card">
+          Savat
+          <Badge badgeContent={totalPrice} color="error">
+            <Image src="/images/cart2.png" alt="cart" height={20} width={20} className='ml-1'/>
+          </Badge>
+        </NavLink>
+        <NavLink href="/favourite">
+          Saralangan
+                <Badge badgeContent={favourite.length} color="error" >
+                  <Image
+                    src="/images/favorite.svg"
+                    alt="cart"
+                    height={20}
+                    width={20}
+                    className='ml-1'
+                  />
+                </Badge>
+        </NavLink>
+        {isAuthenticated ? '' : <>
+                    <NavLink href="/login">Kirish</NavLink>
+                    <NavLink href="/register">Register</NavLink>
+        </>}
       </List>
     </Box>
   );
@@ -129,7 +149,7 @@ const Header = (props: Props) => {
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <NavLink href="/">Home</NavLink>
-              <NavLink href="/about">About</NavLink>
+              <NavLink href="/about">Biz haqimizda</NavLink>
               <NavLink href="/products">Mahsulotlar</NavLink>
               <NavLink href="/card">
                 <Badge badgeContent={totalPrice} color="error">

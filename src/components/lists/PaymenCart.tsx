@@ -1,4 +1,5 @@
 "use client";
+
 import useAddCart from "@/store/cart";
 import CartProducts from "../card/CartProducts";
 import cleanPrice from "@/utils/CleanedPrice";
@@ -7,6 +8,7 @@ import request from "@/server";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const PaymenCart = () => {
   const router = useRouter()
@@ -35,20 +37,20 @@ const PaymenCart = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-extrabold">
-        Savatingiz,{" "}
-        <span className="text-gray-400 font-normal">
-          {cart.length} mahsulot
-        </span>{" "}
-      </h1>{" "}
-      <p></p>
       {cart.length === 0 ? (
-        <div className='text-center'>
-        <h1 className=" text-3xl my-3">{`Mahsulot yo'q :(`}</h1>
-        <Link href='/products' className='underline my-1  text-blue-600'>Xarid qilish</Link>
-        </div>
+       <div className='flex flex-col items-center justify-center'>
+       <Image src='/images/shopocat.webp' alt="nocart" height={100} width={200} />
+       <h1 className="text-3xl my-3">{`Savatda mahsulot yo'q`}</h1>
+       <Link href='/products' className='underline my-1 text-blue-600 text-center'>Xarid qilish</Link>
+     </div>
       ) : (
         <div className="w-full">
+           <h1 className="text-3xl font-extrabold">
+        Savatingiz,
+        <span className="text-gray-400 font-normal">
+          {cart.length} mahsulot
+        </span>
+        </h1>
           {cart.map((pr) => (
             <CartProducts key={pr._id} {...pr} handlePurchase={handlePurchase} />
           ))}

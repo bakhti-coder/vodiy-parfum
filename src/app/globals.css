@@ -22,8 +22,10 @@ a {
 }
 
 .parallax {
-  width: 100%;
-  height: 800px !important;
+  background-image: url(/images/bgimg2.jpg);
+  height: 90vh;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 img {
@@ -76,4 +78,14 @@ body {
   .float-label-input input:not(:placeholder-shown) + label {
     transform: translateY(-1.5rem) scale(0.75);
     background-color: white;
+  }
+
+  @media screen and (max-width: 598px) {
+    a.active {
+      color: red !important;
+      font-weight: 700;
+    }
+    .parallax {
+      height: 70vh;
+    }
   }

@@ -18,6 +18,7 @@ import request from "@/server";
 import { useEffect, useState, useCallback } from "react";
 import { Products } from "@/types/products";
 import { Category } from "@/types/category";
+import Pagination from '@mui/material/Pagination';
 
 import './style.scss'
 
@@ -32,6 +33,9 @@ const ProductsList = () => {
   const [categoryId, setCategoryId] = useState<string>();
   const [activeCategory, setActiveCategory] = useState<string | null>(null); 
   const [activeSort, setActiveSort] = useState<string | null>(null); 
+  const [page, setPage] = useState(1);
+
+  const pageSize = Math.ceil(total / 10)
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -42,6 +46,7 @@ const ProductsList = () => {
       const { data } = await request.get("product", {
         params: {
           limit: 10,
+          page,
           search,
           sort,
           category: categoryId ? categoryId : undefined,
@@ -52,7 +57,7 @@ const ProductsList = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, sort, categoryId]);
+  }, [search, sort, categoryId, page]);
 
   const getCategories = useCallback(async () => {
     try {
@@ -71,6 +76,11 @@ const ProductsList = () => {
   useEffect(() => {
     getCategories();
   }, [getCategories]);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    getProducts();
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -157,6 +167,7 @@ const ProductsList = () => {
               <hr className="my-5 h-[1px] bg-gray-500" />
             </AccordionDetails>
           </Accordion>
+          <hr className="my-5 h-[1px] bg-gray-500 mx-4" />
           <div className="ml-4">
             {sortParams.map((el) => (
               <p
@@ -199,6 +210,7 @@ const ProductsList = () => {
               ))
             )}
           </div>
+          <Pagination count={pageSize} page={page} onChange={handleChange} className='flex justify-center mt-10' color="primary" />
         </Grid>
       </Grid>
     </div>

@@ -20,11 +20,7 @@ const HomePage = async () => {
   return (
     <main>
       <section>
-        <ParallaxComponent
-          bgImage="/images/bgimg2.jpg"
-          bgImageStyle={{ objectFit: "cover" }}
-          strength={200}
-        ></ParallaxComponent>
+        <div className="parallax"></div>
       </section>
       <section>
         <Container maxWidth="xl">
