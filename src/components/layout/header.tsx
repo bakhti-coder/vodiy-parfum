@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import AppBar from "@mui/material/AppBar";
+import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -24,35 +24,6 @@ interface Props {
 }
 
 const drawerWidth = 240;
-
-const navItems = [
-  {
-    href: "/",
-    title: "Asosiy",
-  },
-  {
-    href: "/about",
-    title: "Biz haqimizda",
-  },
-  {
-    href: "/card",
-    title: "Savat",
-    icon: "/images/cart2.png",
-  },
-  {
-    href: "/favourite",
-    title: "Saralanganlar",
-    icon: "/images/favorite.svg",
-  },
-  {
-    href: "/login",
-    title: "Kirish",
-  },
-  {
-    href: "/register",
-    title: "Ro'yhatdan o'tish",
-  },
-];
 
 const Header = (props: Props) => {
   const router = useRouter();
@@ -98,25 +69,47 @@ const Header = (props: Props) => {
         <NavLink href="/card">
           Savat
           <Badge badgeContent={totalPrice} color="error">
-            <Image src="/images/cart2.png" alt="cart" height={20} width={20} className='ml-1'/>
+            <Image
+              src="/images/cart2.png"
+              alt="cart"
+              height={20}
+              width={20}
+              className="ml-1"
+            />
           </Badge>
         </NavLink>
         <NavLink href="/favourite">
           Saralangan
-                <Badge badgeContent={favourite.length} color="error" >
-                  <Image
-                    src="/images/favorite.svg"
-                    alt="cart"
-                    height={20}
-                    width={20}
-                    className='ml-1'
-                  />
-                </Badge>
+          <Badge badgeContent={favourite.length} color="error">
+            <Image
+              src="/images/favorite.svg"
+              alt="cart"
+              height={20}
+              width={20}
+              className="ml-1"
+            />
+          </Badge>
         </NavLink>
-        {isAuthenticated ? '' : <>
-                    <NavLink href="/login">Kirish</NavLink>
-                    <NavLink href="/register">Register</NavLink>
-        </>}
+        {isAuthenticated ? (
+          <>
+            <NavLink href="/account">Account</NavLink>
+            <NavLink href="/orders">Buyurtmalarim</NavLink>
+            <div onClick={handleLogOut} className="flex justify-center items-center cursor-pointer">
+              <Image
+                src={"/images/logouticon.png"}
+                width={24}
+                height={24}
+                alt="log-out"
+              />
+              <span className="ml-2 text-black">Log out</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <NavLink href="/login">Kirish</NavLink>
+            <NavLink href="/register">Register</NavLink>
+          </>
+        )}
       </List>
     </Box>
   );
@@ -213,7 +206,7 @@ const Header = (props: Props) => {
                             height={24}
                             alt="log-out"
                           />
-                          <span className="ml-2 text-black">Log out</span>
+                          <span className="ml-2 text-black">Chiqish</span>
                         </div>
                       </div>
                     )}

@@ -10,7 +10,7 @@ const useAuthCheck = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      if(pathname.startsWith('/admin') && user?.role !== ROLES.ADMIN) {
+      if(pathname.startsWith('/admin') && user?.role === ROLES.USER) {
         router.push('/login')
       }
     } else {
