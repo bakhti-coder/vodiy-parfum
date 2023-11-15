@@ -1,11 +1,12 @@
 'use client'
 
-import withAuth from '@/app/hoc/with-auth'
+import useAuthCheck from "@/hooks/auth-check"
 
 const DashboardPage = () => {
+  useAuthCheck()
   return (
     <div>DashboardPage</div>
   )
 }
 
-export default withAuth(DashboardPage)
+export default DashboardPage

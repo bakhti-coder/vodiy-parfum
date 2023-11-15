@@ -7,13 +7,18 @@ import { UserType } from "@/types/user";
 import { toast } from 'react-toastify';
 import Title from "@/components/shares/Title";
 import Loading from "@/components/shares/Loading";
-import withAuth from "@/app/hoc/with-auth";
+import useAuth from "@/store/auth";
+import { useRouter } from "next/navigation";
+import useAuthCheck from "@/hooks/auth-check";
 
 
 const AccountPage = () => {
+  const router = useRouter()
   const [loadingData, setLoadingData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<UserType>();
+
+  useAuthCheck()
 
   const getUserData = useCallback(async () => {
     try {
@@ -164,4 +169,4 @@ const AccountPage = () => {
   );
 };
 
-export default withAuth(AccountPage);
+export default AccountPage;

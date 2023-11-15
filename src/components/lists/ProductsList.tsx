@@ -145,6 +145,7 @@ const ProductsList = () => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
+              className="shadow-md"
             >
               <Typography>{`Categoriya bo'yicha (${category.length})`}</Typography>
             </AccordionSummary>

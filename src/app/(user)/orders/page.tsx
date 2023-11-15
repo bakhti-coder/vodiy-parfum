@@ -1,10 +1,11 @@
 "use client"
 
 import OrdersList from "@/components/lists/OrdersList";
-import withAuth from "@/app/hoc/with-auth";
+import useAuthCheck from "@/hooks/auth-check";
 
 
 const OrdersPage = () => {
+  useAuthCheck()
   return (
     <section className='container max-w-1200 pt-32'>
       <OrdersList />
@@ -12,4 +13,4 @@ const OrdersPage = () => {
   )
 }
 
-export default withAuth(OrdersPage)
+export default OrdersPage

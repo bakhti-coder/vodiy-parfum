@@ -11,6 +11,7 @@ import { TOKEN, USER } from "@/constants";
 import { useRouter } from "next/navigation";
 import useAuth from "@/store/auth";
 import { toast } from "react-toastify";
+import ROLES from "@/types/roles";
 
 interface IFormInput {
   username: string;
@@ -42,8 +43,11 @@ const LoginForm = () => {
       request.defaults.headers.Authorization = `Bearer ${Cookies.get(TOKEN)}`;
 
       toast.success('Muvaffaqiyatli kirdingiz', {autoClose: 1000})
-
-      router.push("/");
+        if(user.role === ROLES.ADMIN) {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
     } finally {
       setLoading(false);
     }
