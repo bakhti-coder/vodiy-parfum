@@ -6,4 +6,5 @@ export interface Category {
     image: ProductsImage;
     createdAt: string;
     updatedAt: string;
+    __v: number
 }

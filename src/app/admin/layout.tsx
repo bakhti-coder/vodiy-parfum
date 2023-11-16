@@ -15,7 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useAuthCheck from '@/hooks/auth-check';
 import Children from '@/types/children';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Badge from '@mui/material/Badge';
@@ -29,7 +29,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { GaugeCircle, ShoppingBag, Mails   } from 'lucide-react';
+import { GaugeCircle, ShoppingBag, Mails, Users    } from 'lucide-react';
 import useAuth from '@/store/auth';
 
 const drawerWidth = 240;
@@ -105,7 +105,7 @@ export default function AdminLayout({children}: Children) {
   const theme = useTheme();
   const router = useRouter()
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -233,7 +233,7 @@ export default function AdminLayout({children}: Children) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Dashboard
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -308,7 +308,7 @@ export default function AdminLayout({children}: Children) {
                 <ListItemText primary={'Dashboard'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => router.push('/admin')}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => router.push('/admin/user')}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -323,7 +323,7 @@ export default function AdminLayout({children}: Children) {
                     justifyContent: 'center',
                   }}
                 >
-                  <GaugeCircle  />
+                   <Users />
                 </ListItemIcon>
                 <ListItemText primary={'Users'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>

@@ -10,13 +10,16 @@ export interface Products {
     url: string;
   };
   quantity: number;
-  category: string;
+  category: {
+    name: string;
+  };
   createdAt: string;
   updatedAt: string;
   __v: number;
-  prQuantity?: number
+  prQuantity?: number;
 }
 export interface ProductsImage {
   public_id: string;
   url: string;
 }
+
