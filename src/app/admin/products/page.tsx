@@ -143,8 +143,8 @@ const AdminProduct = () => {
           </div>
         ) : (
           products.map((el) => (
-            <Grid xs={3} key={el._id} className="mt-5">
-            <ProductsCardAdmin {...el} handleDelete={handleDelete} handleEdit={handleEdit} setValue={setValue} btnLoading={btnLoading} btnId={btnId}  />
+            <Grid item xs={12} sm={6} md={4} lg={3} key={el._id} className="mt-5">
+              <ProductsCardAdmin {...el} handleDelete={handleDelete} handleEdit={handleEdit} setValue={setValue} btnLoading={btnLoading} btnId={btnId}  />
             </Grid>
           ))
         )}
