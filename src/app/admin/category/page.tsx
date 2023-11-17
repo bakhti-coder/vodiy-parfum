@@ -76,6 +76,7 @@ const CategoryAdmin = () => {
         <SearchInput handleSearch={handleSearch} search={search} />
       </Box>
       <Box className="text-right">
+        
         <Button
           onClick={() => showModal(reset)}
           size="small"

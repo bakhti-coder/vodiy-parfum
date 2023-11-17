@@ -32,10 +32,10 @@ const TablePayment = ({ cart, status }: any) => {
                     {cart?.map((el:any) => (
                   <tr key={el._id} className="border-b dark:border-neutral-500">
                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      <Image src={el?.product.image.url} width={50} height={100} alt='img' />
+                      <Image src={el?.product?.image?.url} width={50} height={100} alt='img' />
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4">{el?.product.title}</td>
-                    <td className="whitespace-nowrap px-6 py-4">{el?.product.price}</td>
+                    <td className="whitespace-nowrap px-6 py-4">{el?.product?.title}</td>
+                    <td className="whitespace-nowrap px-6 py-4">{el?.product?.price}</td>
                     <td className="whitespace-nowrap px-6 py-4">{el?.quantity}</td>
                     <td className={`whitespace-nowrap px-6 py-4 text-green-900 font-bold ${status === 'ACCEPTED' && 'text-black' || status === 'SUCCESS' && 'text-green-900' || status === 'CANCELED' && 'text-red-800'}`}>{status === 'ACCEPTED' && 'Buyurtma yuborildi' || status === 'SUCCESS' && 'Yetkazildi' || status === 'CANCELED' && 'Buyurtma bekor qilindi'}</td>
                   </tr>

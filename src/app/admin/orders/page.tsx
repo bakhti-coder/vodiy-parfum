@@ -1,10 +1,28 @@
-'use client'
-import React from 'react'
+"use client";
+
+import * as React from 'react';
+import OrdersTableAdmin from '@/components/admin/table';
+import useOrders from '@/store/orders';
+
+
+
 
 const OrdersAdmin = () => {
-  return (
-    <div>OrdersAdmin</div>
-  )
-}
+  const {loading, data, getOrders, conifrmOrders, btnLoading, btnId} = useOrders()
 
-export default OrdersAdmin
+  const getStatusLength = (status: string) => data.filter(order => order.status === status).length;
+
+  const acceptedLength = getStatusLength('ACCEPTED');
+  const successLength = getStatusLength('SUCCESS');
+  const canceledLength = getStatusLength('CANCELED');
+
+  return (
+    <section>
+      <OrdersTableAdmin status='ACCEPTED' length={acceptedLength} />
+      <OrdersTableAdmin status='SUCCESS' length={successLength}/>
+      <OrdersTableAdmin status='CANCELED' length={canceledLength}/>
+    </section>
+  );
+};
+
+export default OrdersAdmin;
