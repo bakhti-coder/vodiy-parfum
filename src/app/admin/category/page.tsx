@@ -1,15 +1,10 @@
 "use client";
 import Title from "@/components/shares/Title";
-import useProducts from "@/store/products";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CategoryCardAdmin from "./../../../components/admin/cards/CategoryCard";
 import { Box, Button, Grid, Pagination, TextField } from "@mui/material";
 import Loading from "@/components/shares/Loading";
 import SearchInput from "@/components/admin/search-input";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import useCategory from "@/store/category";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
@@ -37,6 +32,7 @@ const style = {
 };
 
 const CategoryAdmin = () => {
+
   const {
     categories: category,
     loading: categoryLoading,

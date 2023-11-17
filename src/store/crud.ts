@@ -7,6 +7,7 @@ const crud = <T>(url: string) => {
   interface DataState {
     data: T[];
     categories: T[];
+    dataUser: T[];
     loading: boolean;
     total: number;
     search: string;
@@ -34,6 +35,7 @@ const crud = <T>(url: string) => {
     handleOk: (data: any, reset: any) => void;
     handleEdit: (id: string, form: any) => void;
     handleDelete: (id: string) => void;
+    getUserData: () => void;
   }
 
   return create<DataState>((set, get) => ({
@@ -69,13 +71,14 @@ const crud = <T>(url: string) => {
       reset()
     },
     handlePage: (page) => {
-      console.log(page);
       set((state) => ({ ...state, page: page }));
       get().getData();
+      get().getUserData();
     },
     handleSearch: (e) => {
       set((state) => ({ ...state, search: e.target.value }));
       get().getData();
+      get().getUserData();
     },
     handleUser: (id) => {
       set({ userId: id });
@@ -103,6 +106,33 @@ const crud = <T>(url: string) => {
         const pageSize = Math.ceil(total / 10);
 
         set({ data: products });
+        set({ pageSize });
+        set({ total });
+      } finally {
+        set((state) => ({ ...state, loading: false }));
+      }
+    },
+    getUserData: async () => {
+      const { search } = get();
+      const { page } = get();
+
+      try {
+        set((state) => ({ ...state, loading: true }));
+        const {
+          data: { total, users },
+        } = await request.get<{
+          total: number;
+          users: T[];
+        }>(url, {
+          params: {
+            page,
+            search,
+          },
+        });
+
+        const pageSize = Math.ceil(total / 10);
+
+        set({ dataUser: users });
         set({ pageSize });
         set({ total });
       } finally {
@@ -152,6 +182,7 @@ const crud = <T>(url: string) => {
         set({ photo: null });
         get().getData();
         get().getCategory();
+        get().getUserData();
         get().closeModal();
       } finally {
         set((state) => ({ ...state, isModalLoading: false }));
@@ -163,10 +194,17 @@ const crud = <T>(url: string) => {
         set((state) => ({ ...state, loading: true }));
         const { data } = await request.get(`${url}/${id}`);
         set((state) => ({ ...state, isModalOpen: true }));
+        // Products
         setValue("title", data.title);
         setValue("quantity", data.quantity);
         setValue("price", data.price);
         setValue("name", data?.name);
+        set({ photo: data.image });
+        // Users
+        setValue("firstName", data.firstName);
+        setValue("lastName", data.lastName);
+        setValue("phoneNumber", data.phoneNumber);
+        setValue("username", data?.username);
         set({ photo: data.image });
       } finally {
         set((state) => ({ ...state, loading: false }));
@@ -179,6 +217,7 @@ const crud = <T>(url: string) => {
         const { data } = await request.delete(`${url}/${id}`);
         get().getData();
         get().getCategory();
+        get().getUserData();
         toast.success(`Muvaffaqiyatli o'chirildi`, { autoClose: 1000 });
       } finally {
         set((state) => ({ ...state, btnLoading: false }));

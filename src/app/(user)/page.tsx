@@ -44,7 +44,7 @@ const HomePage = async () => {
           </div>
         </Container>
       </section>
-      <section>
+      <section className='category_section'>
         <Container maxWidth="xl">
         <Title>Categoriyalar</Title>
           <CategoryList />
