@@ -23,6 +23,8 @@ const crud = <T>(url: string) => {
     photo: ProductsImage | null;
     loadingRole: boolean;
     userId: string;
+    categoryOneId: string | null;
+    categoryName: string | null;
     closeModal: () => void;
     categoryIdFunc: (id: string) => void;
     showModal: (form: any) => void;
@@ -36,6 +38,7 @@ const crud = <T>(url: string) => {
     handleEdit: (id: string, form: any) => void;
     handleDelete: (id: string) => void;
     getUserData: () => void;
+    getOneCategory: () => void;
   }
 
   return create<DataState>((set, get) => ({
@@ -48,6 +51,7 @@ const crud = <T>(url: string) => {
     page: 1,
     pageSize: 1,
     categoryId: null,
+    categoryName: null,
     categoryIdFunc: (id) => {
       set({ categoryId: id });
       get().getData();
@@ -61,6 +65,7 @@ const crud = <T>(url: string) => {
     btnId: null,
     loadingRole: false,
     userId: "",
+    categoryOneId: null,
     closeModal: () => {
       set((state) => ({ ...state, isModalOpen: false }));
     },
@@ -142,11 +147,21 @@ const crud = <T>(url: string) => {
     getCategory: async () => {
       const { search } = get();
       const { page } = get();
-
       try {
         set((state) => ({ ...state, loading: true }));
         const { data } = await request.get(url);
         set({ categories: data });
+      } finally {
+        set((state) => ({ ...state, loading: false }));
+      }
+    },
+    getOneCategory: async () => {
+      const {categoryOneId} = get()
+      try {
+        set((state) => ({ ...state, loading: true }));
+        const { data } = await request.get(`${url}/${categoryOneId}`);
+        console.log(data)
+        set({ categoryName: data.name });
       } finally {
         set((state) => ({ ...state, loading: false }));
       }
@@ -193,6 +208,8 @@ const crud = <T>(url: string) => {
         set((state) => ({ ...state, selected: id }));
         set((state) => ({ ...state, loading: true }));
         const { data } = await request.get(`${url}/${id}`);
+        set({categoryOneId: data?.category})
+        set({ photo: data.image });
         set((state) => ({ ...state, isModalOpen: true }));
         // Products
         setValue("title", data.title);
@@ -205,12 +222,11 @@ const crud = <T>(url: string) => {
         setValue("lastName", data.lastName);
         setValue("phoneNumber", data.phoneNumber);
         setValue("username", data?.username);
-        set({ photo: data.image });
       } finally {
         set((state) => ({ ...state, loading: false }));
-      }
+      } 
     },
-    handleDelete: async (id) => {
+      handleDelete: async (id) => {
       try {
         set((state) => ({ ...state, btnLoading: true }));
         set((state) => ({ ...state, btnId: id }));

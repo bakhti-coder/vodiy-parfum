@@ -8,7 +8,7 @@ import useOrders from '@/store/orders';
 
 
 const OrdersAdmin = () => {
-  const {loading, data, getOrders, conifrmOrders, btnLoading, btnId} = useOrders()
+  const {loading, data} = useOrders()
 
   const getStatusLength = (status: string) => data.filter(order => order.status === status).length;
 

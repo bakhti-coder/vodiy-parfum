@@ -80,7 +80,6 @@ const OrdersTableAdmin = ({status, length}: any) => {
                             {status === 'ACCEPTED' ?  <div className='flex items-center justify-end'>
                           {
                             btnId === row._id && btnLoading ? <Button
-                            onClick={() => conifrmOrders(row._id)}
                             size="small"
                             variant="contained"
                             className="bg-blue-400 text-white cursor-not-allowed"
@@ -97,7 +96,6 @@ const OrdersTableAdmin = ({status, length}: any) => {
                           }
                            {
                             btnId === row._id && btnLoading ? <Button
-                            onClick={() => conifrmOrders(row._id)}
                             size="small"
                             variant="contained"
                             color="error"
@@ -121,7 +119,7 @@ const OrdersTableAdmin = ({status, length}: any) => {
                         </TableCell>
                         <TableCell align='right'>
                           <Button
-                          href={`/admin/orders/${row.userId}`}
+                            href={`/admin/orders/${row.userId}`}
                             size="small"
                             className=""
                           >

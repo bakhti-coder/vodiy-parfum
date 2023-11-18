@@ -68,6 +68,9 @@ const AdminProduct = () => {
     handleDelete,
     btnId,
     btnLoading,
+    categoryName,
+    getOneCategory,
+    categoryOneId,
   } = useProducts();
 
   const { categories, getCategory, loading: ctgrLoading } = useCategory();
@@ -75,9 +78,14 @@ const AdminProduct = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
+
   const handleChangeValue = (event: SelectChangeEvent) => {
     setCtgrId(event.target.value as string);
   };
+
+  useEffect(() => {
+    getOneCategory();
+  }, [getOneCategory]);
 
   useEffect(() => {
     getProducts();
@@ -90,16 +98,15 @@ const AdminProduct = () => {
   const { register, handleSubmit, setValue, reset } = useForm<IFormInput>({});
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    data.category = ctgrIdPr
-    data.image = photo
-    handleOk(data, reset)
-  }
+    data.category = ctgrIdPr;
+    data.image = photo;
+    handleOk(data, reset);
+  };
 
   return (
     <section>
-      <Box className="flex justify-between items-center gap-10">
-        <Title>Products({prLoading ? "..." : prTotal})</Title>
-        <SearchInput handleSearch={handleSearch} search={search} />
+      <Title>Products({prLoading ? "..." : prTotal})</Title>
+      <Box className="flex justify-between items-center">
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
           <InputLabel id="demo-select-small-label">Category</InputLabel>
           <Select
@@ -117,7 +124,7 @@ const AdminProduct = () => {
               : categories.map((el) => (
                   <MenuItem
                     key={el._id}
-                    value={10}
+                    value={el.name}
                     onClick={() => categoryIdFunc(el._id)}
                   >
                     {el.name}
@@ -125,8 +132,6 @@ const AdminProduct = () => {
                 ))}
           </Select>
         </FormControl>
-      </Box>
-      <Box className='text-right'>
         <Button
           onClick={showModal}
           size="small"
@@ -136,28 +141,46 @@ const AdminProduct = () => {
           Add
         </Button>
       </Box>
+      <Box className="flex flex-wrap gap-2 md:justify-between items-center lg:gap-10">
+        <SearchInput handleSearch={handleSearch} search={search} />
+      </Box>
       <Grid container spacing={2}>
         {prLoading ? (
-          <div className='ml-4'>
+          <div className="ml-4">
             <Loading />
           </div>
         ) : (
           products.map((el) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={el._id} className="mt-5">
-              <ProductsCardAdmin {...el} handleDelete={handleDelete} handleEdit={handleEdit} setValue={setValue} btnLoading={btnLoading} btnId={btnId}  />
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              key={el._id}
+              className="mt-5"
+            >
+              <ProductsCardAdmin
+                {...el}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                setValue={setValue}
+                btnLoading={btnLoading}
+                btnId={btnId}
+              />
             </Grid>
           ))
         )}
       </Grid>
-        {prTotal > LIMIT ? (
-          <Pagination
-            className="mt-10"
-            color="primary"
-            count={pageSize}
-            page={page}
-            onChange={(e, value) => handlePage(value)}
-          />
-        ) : null }
+      {prTotal > LIMIT ? (
+        <Pagination
+          className="mt-10"
+          color="primary"
+          count={pageSize}
+          page={page}
+          onChange={(e, value) => handlePage(value)}
+        />
+      ) : null}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -171,7 +194,7 @@ const AdminProduct = () => {
           },
         }}
       >
-        <Fade in={isModalOpen}>
+        <Fade in={isModalOpen} className="md:w-auto w-full">
           <Box sx={style}>
             Product data
             <div
@@ -183,18 +206,30 @@ const AdminProduct = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2}>
                 <Grid xs={12} className="mt-5">
-                  <TextField type="file" sx={{ minWidth: "100%" }} onChange={uploadPhoto} />
-                  {photoLoading ?  <CardMedia
-                    component="img"
-                    alt="loading..."
-                    className='w-full h-64 mt-5'
-                    image={'https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831'}
-                  /> : photo &&  <CardMedia
-                  component="img"
-                  alt="loading..."
-                  className='w-full h-64 mt-5'
-                  image={photo?.url}
-                />}
+                  <TextField
+                    type="file"
+                    sx={{ minWidth: "100%" }}
+                    onChange={uploadPhoto}
+                  />
+                  {photoLoading ? (
+                    <CardMedia
+                      component="img"
+                      alt="loading..."
+                      className="w-full h-64 mt-5"
+                      image={
+                        "https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831"
+                      }
+                    />
+                  ) : (
+                    photo && (
+                      <CardMedia
+                        component="img"
+                        alt="loading..."
+                        className="w-full h-64 mt-5"
+                        image={photo?.url}
+                      />
+                    )
+                  )}
                 </Grid>
                 <Grid xs={12} className="mt-5">
                   <TextField
@@ -235,13 +270,17 @@ const AdminProduct = () => {
                       labelId="demo-select-small-label"
                       id="demo-select-small"
                       value={ctgrId}
-                      label="Age"
+                      label="category"
                       onChange={handleChangeValue}
                     >
                       {ctgrLoading
                         ? "loading.."
                         : categories.map((el) => (
-                            <MenuItem value={10} key={el._id} onClick={() => setCtgrIdPr(el._id)}>
+                            <MenuItem
+                              key={el._id}
+                              value={el?.name}
+                              onClick={() => setCtgrIdPr(el._id)}
+                            >
                               {el.name}
                             </MenuItem>
                           ))}
@@ -249,21 +288,24 @@ const AdminProduct = () => {
                   </FormControl>
                 </Grid>
                 <Grid xs={12} className="mt-5">
-                  {isModalLoading ?  <Button
-                    size="small"
-                    variant="contained"
-                    className="bg-blue-400 text-white w-full cursor-not-allowed"
-                  >
-                    Loading..
-                  </Button> :      <Button
-                    type="submit"
-                    size="small"
-                    variant="contained"
-                    className="bg-blue-400 text-white w-full"
-                  >
-                    {selected === null ? 'Add' : 'save'} 
-                  </Button>}
-             
+                  {isModalLoading ? (
+                    <Button
+                      size="small"
+                      variant="contained"
+                      className="bg-blue-400 text-white w-full cursor-not-allowed"
+                    >
+                      Loading..
+                    </Button>
+                  ) : (
+                    <Button
+                      type="submit"
+                      size="small"
+                      variant="contained"
+                      className="bg-blue-400 text-white w-full"
+                    >
+                      {selected === null ? "Add" : "save"}
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </form>

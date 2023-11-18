@@ -12,11 +12,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box, Button } from "@mui/material"
+import useOrders from "@/store/orders"
 
 const SingleOrderAdmin = () => {
     const [data, setData] = useState<User>()
     const [loading, setLoading] = useState(false)
     const {id} = useParams()
+
+    const { getOrders, conifrmOrders, btnLoading, loading: orderLoading, btnId} = useOrders()
   
     useEffect(() => {
         async function getData() {
@@ -29,7 +32,7 @@ const SingleOrderAdmin = () => {
             }
         }
         getData()
-    }, [ id])
+    }, [id])
 
   return (
     <div>
@@ -57,9 +60,16 @@ const SingleOrderAdmin = () => {
               </TableCell>
               <TableCell align="right">{data?.username}</TableCell>
               <TableCell align="right">{data?.phoneNumber}</TableCell>
-              <TableCell align="right">{data?.createdAt?.split('T')[0]}/{data?.createdAt?.split('T')[1].split('.')[0]}</TableCell>
+              <TableCell align="right">{`${data?.createdAt?.split('T')[0] || ''}/${data?.createdAt?.split('T')[1]?.split('.')[0] || ''}`}</TableCell>
               <TableCell align="right">
-                <Button variant="contained" className="bg-blue-500">conifirm</Button>
+              {btnId === data?._id && btnLoading ? <Button
+                            size="small"
+                            variant="contained"
+                            className="bg-blue-400 text-white cursor-not-allowed"
+                          >
+                            wait...
+                            </Button> : <Button variant="contained" className="bg-blue-500" onClick={() => conifrmOrders(data?._id)}>conifirm</Button>}
+                
               </TableCell>
             </TableRow> }
         </TableBody>

@@ -9,7 +9,7 @@ interface OrdersData {
     btnLoading: boolean;
     btnId: null | string;
     getOrders: () => void;
-    conifrmOrders: (id: string) => void;
+    conifrmOrders: (id: string | undefined) => void;
     cancelOrders: (id: string) => void;
 }
 
