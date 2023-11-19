@@ -1,6 +1,5 @@
 import ProductCard from "@/components/card/ProductCard";
 import CategoryList from "@/components/lists/CategoryList";
-import ParallaxComponent from "@/components/parralax";
 import Title from "@/components/shares/Title";
 import request from "@/server";
 import { Products } from "@/types/products";
