@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 
 import Children from "@/types/children";
 import { ToastContainer } from 'react-toastify';
+import Provider from "./provider";
 
 import "swiper/css";
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,14 +18,18 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "Vodiy parfum",
-  description: "Vodiy Parfum | Typescript",
+  description: "Vodiy Parfum | Typescript Project",
 };
 
 export default function RootLayout({ children }: Children) {
   return (
     <html lang="en">
       <ToastContainer />
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <Provider>
+          {children}
+        </Provider>
+      </body>
     </html>
   );
 }

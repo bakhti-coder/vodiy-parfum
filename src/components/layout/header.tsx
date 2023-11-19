@@ -32,10 +32,12 @@ const Header = (props: Props) => {
   const [userOpen, setUserOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { logOut, isAuthenticated } = useAuth();
+  const { logOut, isAuthenticated, user } = useAuth();
   const handleLogOut = () => {
     logOut(router);
   };
+
+  
 
   const { cart } = useAddCart();
   const totalPrice = cart.reduce(
@@ -94,6 +96,8 @@ const Header = (props: Props) => {
           <>
             <NavLink href="/account">Account</NavLink>
             <NavLink href="/orders">Buyurtmalarim</NavLink>
+
+            
             <div onClick={handleLogOut} className="flex justify-center items-center cursor-pointer">
               <Image
                 src={"/images/logouticon.png"}
@@ -196,6 +200,17 @@ const Header = (props: Props) => {
                             Buyurtmalarim
                           </Link>
                         </div>
+                        {user?.role === 1 && <div className="flex justify-start mb-3 items-center text-white">
+                          <Image
+                            src={"/images/accounticon.png"}
+                            width={24}
+                            height={24}
+                            alt="orders"
+                          />
+                          <Link href={"/admin"} className="ml-2 text-black">
+                            Dashboard
+                          </Link>
+                        </div>}
                         <div
                           onClick={handleLogOut}
                           className="flex justify-start items-center text-white"

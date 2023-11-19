@@ -2648,6 +2648,11 @@ react-hook-form@^7.48.2:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.48.2.tgz#01150354d2be61412ff56a030b62a119283b9935"
   integrity sha512-H0T2InFQb1hX7qKtDIZmvpU1Xfn/bdahWBN1fH19gSe4bBEqTfmlr7H3XWTaVtiK4/tpPaI1F3355GPMZYge+A==
 
+react-hydration-provider@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-hydration-provider/-/react-hydration-provider-2.1.0.tgz#7dae61bd6a405143f82018e40990b7da476d5cf4"
+  integrity sha512-Bj0WHSbL9x/RP9XcA/uqmtktVN4RdgTRYma3RYvFFvOY1ljHk+DSjKjw6WH/ouF03fqVE+vmCZhGhv8Hvv8sYQ==
+
 react-icons@^4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.12.0.tgz#54806159a966961bfd5cdb26e492f4dafd6a8d78"
