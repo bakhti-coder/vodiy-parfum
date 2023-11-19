@@ -4,7 +4,6 @@ import useAddCart from "@/store/cart";
 import cleanPrice from "@/utils/CleanedPrice";
 import { Button, Tooltip } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
 
 const CartProducts = ({
   _id,

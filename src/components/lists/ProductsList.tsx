@@ -21,6 +21,7 @@ import { Category } from "@/types/category";
 import Pagination from '@mui/material/Pagination';
 
 import './style.scss'
+import { LIMIT } from "@/constants";
 
 const ProductsList = () => {
   const [data, setData] = useState<Products[]>([]);
@@ -211,7 +212,7 @@ const ProductsList = () => {
               ))
             )}
           </div>
-          <Pagination count={pageSize} page={page} onChange={handleChange} className='flex justify-center mt-10' color="primary" />
+          {total > LIMIT ? <Pagination count={pageSize} page={page} onChange={handleChange} className='flex justify-center mt-10' color="primary" /> : null }
         </Grid>
       </Grid>
     </div>

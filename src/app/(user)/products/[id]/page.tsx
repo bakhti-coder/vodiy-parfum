@@ -3,7 +3,7 @@ import request from "@/server";
 import DynamicMetaData from "@/types/dynamic-metaData";
 import { Products } from "@/types/products";
 
-async function generateMetadata({ params: { id } }: DynamicMetaData) {
+export  async function generateMetadata({ params: { id } }: DynamicMetaData) {
   const { data } = await request.get<Products>(`product/${id}`);
 
   return {
@@ -23,7 +23,7 @@ const SingleProduct = async ({
     <section>
       <div className="container max-w-1200 py-20">
 
-          <SingleCard data={data} />
+        <SingleCard {...data} />
 
         <h2 className="text-2xl font-bold text-dark leading-8 mt-32 mb-5">
           Boshqa mahsulotlar

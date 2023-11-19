@@ -33,6 +33,7 @@ const PaymenCart = () => {
       setLoading(false)
     }
   };
+  
   const cleanedPrice = cleanPrice(totalPriceQuanity);
 
   return (
@@ -46,7 +47,7 @@ const PaymenCart = () => {
       ) : (
         <div className="w-full">
            <h1 className="text-3xl font-extrabold">
-        Savatingiz,
+            Savatingiz,
         <span className="text-gray-400 font-normal">
           {cart.length} mahsulot
         </span>

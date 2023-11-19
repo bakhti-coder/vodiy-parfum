@@ -4,9 +4,9 @@ import useAddCart from "@/store/cart";
 import useAddFavourite from "@/store/favourite";
 import { Products } from "@/types/products";
 import cleanPrice from "@/utils/CleanedPrice";
-import { Tooltip } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { Tooltip } from "@mui/material";
 
 const ProductCard = ({ _id, image, title, description, price }: Products) => {
   const { addToCart, cart } = useAddCart();
