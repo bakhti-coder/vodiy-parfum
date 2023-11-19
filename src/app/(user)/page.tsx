@@ -1,4 +1,3 @@
-import ProductCard from "@/components/card/ProductCard";
 import CategoryList from "@/components/lists/CategoryList";
 import LastesProductsList from "@/components/lists/LastesProductsList";
 import Title from "@/components/shares/Title";

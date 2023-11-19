@@ -1,4 +1,5 @@
 import SingleCard from "@/components/card/SingleCard";
+import SimilarProductsList from "@/components/lists/SimilarProductsList";
 import request from "@/server";
 import DynamicMetaData from "@/types/dynamic-metaData";
 import { Products } from "@/types/products";
@@ -7,7 +8,7 @@ export  async function generateMetadata({ params: { id } }: DynamicMetaData) {
   const { data } = await request.get<Products>(`product/${id}`);
 
   return {
-    title: data.title,
+    title: `Vodiy parfum | ${data.title}`,
     description: data.description,
   };
 }
@@ -26,8 +27,9 @@ const SingleProduct = async ({
         <SingleCard {...data} />
 
         <h2 className="text-2xl font-bold text-dark leading-8 mt-32 mb-5">
-          Boshqa mahsulotlar
+          O'xshash mahsulotlar
         </h2>
+        <SimilarProductsList id={data?.category} />
       </div>
     </section>
   );

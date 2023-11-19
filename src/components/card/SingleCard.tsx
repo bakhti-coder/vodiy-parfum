@@ -105,18 +105,18 @@ const SingleCard = ({sold, _id, title, price, description, image, quantity, cate
                 ></i>
               </span>
             </button>
-            <p className="px-1 text-md ">{purchaseQuantitiy}</p>
+            <p className="px-1 text-md ">{quantity === 0 ? quantity : purchaseQuantitiy}</p>
 
             <button
               onClick={() => setPurchaseQuantity(purchaseQuantitiy + 1)}
-              disabled={purchaseQuantitiy === quantity ? true : false}
+              disabled={purchaseQuantitiy >= quantity ? true : false}
               className={`bg-transparent  px-5 py-[3px] rounded-r cursor-pointer ${
-                purchaseQuantitiy === quantity
+                purchaseQuantitiy >= quantity
                   ? "text-gray-500"
                   : "text-black"
               }`}
             >
-              {purchaseQuantitiy === quantity ? (
+              {purchaseQuantitiy >= quantity ? (
                 <Tooltip
                   title={`Sotuvda faqat ${quantity} ta mahsulot bor`}
                   placement="top"

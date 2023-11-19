@@ -38,7 +38,7 @@ const ProductCard = ({ _id, image, title, description, price }: Products) => {
       />
       </div>
       <div className="h-full w-full relative flex-1">
-        <Link href={`products/${_id}`}>
+        <Link href={`/products/${_id}`}>
           <div className="relative h-52 w-full">
             <Image
               src={image?.url}
