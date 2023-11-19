@@ -26,7 +26,7 @@ const ProductCard = ({ _id, image, title, description, price }: Products) => {
   };
 
   return (
-    <div className="hover:shadow-sm bg-gray flex flex-col  border border-lightGray p-6 rounded-lg w-full h-full relative ">
+    <div  className="hover:shadow-sm bg-gray flex flex-col  border border-lightGray p-6 rounded-lg w-full h-full relative ">
       <div onClick={handleFavouriteClick}>
       <Image
         src={isInFavourite ? `/images/heartsfill.png` : '/images/heart.svg'}

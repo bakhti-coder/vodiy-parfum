@@ -1,3 +1,4 @@
+import PageTransitionProvider from "@/components/animation/page-transition";
 import FavouriteList from "@/components/lists/FavouriteList";
 import { Container } from "@mui/material";
 import { Metadata } from "next";
@@ -8,11 +9,15 @@ export const metadata: Metadata = {
 };
 
 const FavouritePage = () => {
-  return <section>
-    <Container maxWidth='xl' sx={{marginTop: '100px'}}>
-      <FavouriteList />
-    </Container>
-  </section>;
+  return (
+    <PageTransitionProvider>
+      <section>
+        <Container maxWidth="xl" sx={{ marginTop: "100px" }}>
+          <FavouriteList />
+        </Container>
+      </section>
+    </PageTransitionProvider>
+  );
 };
 
 export default FavouritePage;

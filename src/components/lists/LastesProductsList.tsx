@@ -15,7 +15,9 @@ const LastesProductsList: React.FC<MyComponentProps> = ({ data }) => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {data.slice(0, showProducts).map((product, index) => (
-          <ProductCard key={index} {...product} />
+          <div data-aos="zoom-in-up" data-aos-delay={index * 100}>
+            <ProductCard key={index} {...product} />
+          </div>
         ))}
       </div>
       <div className="max-w-708 w-92 m-auto my-8">

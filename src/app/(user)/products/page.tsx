@@ -1,4 +1,5 @@
 
+import PageTransitionProvider from "@/components/animation/page-transition";
 import ProductsList from "@/components/lists/ProductsList";
 import { Container } from "@mui/material";
 import { Metadata } from "next";
@@ -11,12 +12,13 @@ export const metadata: Metadata = {
 const AllProductsPage = async () => {
 
   return (
-    <section className="py-20">
-      <Container maxWidth="xl">
-       
-        <ProductsList />
-      </Container>
-    </section>
+    <PageTransitionProvider>
+      <section className="py-20">
+        <Container maxWidth="xl">
+          <ProductsList />
+        </Container>
+      </section>
+    </PageTransitionProvider>
   );
 };
 

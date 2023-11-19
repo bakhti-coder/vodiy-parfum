@@ -8,6 +8,7 @@ import Provider from "./provider";
 import "swiper/css";
 import 'react-toastify/dist/ReactToastify.css';
 import "./globals.css";
+import AosProvider from "@/components/animation/aos";
 
 
 const roboto = Roboto({
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: Children) {
       <ToastContainer />
       <body className={roboto.className}>
         <Provider>
-          {children}
+          <AosProvider>{children}</AosProvider> 
         </Provider>
       </body>
     </html>

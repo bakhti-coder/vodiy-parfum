@@ -2,6 +2,7 @@ import LoginForm from "@/components/form/LoginForm";
 import { Metadata } from "next";
 
 import './login.scss';
+import PageTransitionProvider from "@/components/animation/page-transition";
 
 export const metadata: Metadata = {
   title: "Vodiy Parfum | Login",
@@ -9,9 +10,13 @@ export const metadata: Metadata = {
 };
 
 const LoginPage = () => {
-  return <section className="container max-w-1200 pt-36">
-    <LoginForm />
-  </section>;
+  return (
+    <PageTransitionProvider>
+      <section className="container max-w-1200 pt-36">
+        <LoginForm />
+      </section>;
+    </PageTransitionProvider>
+  )
 };
 
 export default LoginPage;
