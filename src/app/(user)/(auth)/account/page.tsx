@@ -54,11 +54,11 @@ const AccountPage = () => {
     <section>
       <Container maxWidth="xl" sx={{ marginTop: "100px" }}>
         <div className="text-center">
-            <Title>Accaount</Title>
+            <Title>Profile</Title>
         </div>
         {loadingData ? <Loading /> :  <form
             onSubmit={onSubmit}
-            className="w-96 h-screen m-auto"
+            className="w-96 m-auto"
           >
             <div className="relative float-label-input">
               <input

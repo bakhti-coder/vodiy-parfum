@@ -1,5 +1,6 @@
 import ProductCard from "@/components/card/ProductCard";
 import CategoryList from "@/components/lists/CategoryList";
+import LastesProductsList from "@/components/lists/LastesProductsList";
 import Title from "@/components/shares/Title";
 import request from "@/server";
 import { Products } from "@/types/products";
@@ -94,14 +95,7 @@ const HomePage = async () => {
               Barcha mahsulotlar
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {data
-              .filter((el) => el?.quantity !== 0)
-              .slice(0, 10)
-              .map((product, index) => (
-                <ProductCard key={index} {...product} />
-              ))}
-          </div>
+          <LastesProductsList data={data} />
         </Container>
       </section>
       <section className="category_section">

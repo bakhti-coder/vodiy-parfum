@@ -160,7 +160,6 @@ const crud = <T>(url: string) => {
       try {
         set((state) => ({ ...state, loading: true }));
         const { data } = await request.get(`${url}/${categoryOneId}`);
-        console.log(data)
         set({ categoryName: data.name });
       } finally {
         set((state) => ({ ...state, loading: false }));
