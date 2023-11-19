@@ -122,7 +122,6 @@ export default function AdminLayout({children}: Children) {
   };
 
   const handleMenuClose = () => {
-    router.push('/admin/account')
     setAnchorEl(null);
     handleMobileMenuClose();
   };
@@ -156,7 +155,7 @@ export default function AdminLayout({children}: Children) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={() => router.push('/account')}>Profile</MenuItem>
       <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
     </Menu>
   );
