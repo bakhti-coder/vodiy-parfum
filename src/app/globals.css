@@ -88,4 +88,7 @@ img {
     .parallax {
       height: 70vh;
     }
+    .slick-dots {
+      display: none !important;
+    }
   }

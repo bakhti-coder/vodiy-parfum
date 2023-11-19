@@ -39,8 +39,6 @@ const CategoryList = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
-    // autoplay: true,
-      // autoplaySpeed: 1000,
       nextArrow: <button className="slick-next bg-black">Keyingi</button>,
       prevArrow: <button className="slick-prev">Oldingi</button>,
     responsive: [
